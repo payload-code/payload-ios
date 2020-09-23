@@ -77,7 +77,7 @@ Payload.all(Payload.Customer.filter_by([
 ### Get a Specific Customer
 
 ```swift
-Payload.get(Payload.Customer(["id: cust_id])), {(obj: Any) in
+Payload.get(Payload.Customer(["id: cust_id]), {(obj: Any) in
     let cust = obj as! Payload.Customer
     /* Do something with response */
 })
@@ -93,7 +93,7 @@ Payload.create(Payload.Payment([
 ]), {(obj: Any) in
     let cust = (obj as? Payload.Customer)!
 }, {(error: Payload.PayloadError) in
- handleError(error);
+    handleError(error);
 })
 ```
 
