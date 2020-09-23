@@ -6,7 +6,7 @@ An iOS library for integrating [Payload](https://payload.co)
 
 ### Cocoapod Installation
 
-- Add  `pod 'Payload'` to your Podfile
+- Add  `pod 'PayloadAPI'` to your Podfile
 
 - Run `pod install`
 

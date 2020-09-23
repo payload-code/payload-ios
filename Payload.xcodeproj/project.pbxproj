@@ -10,13 +10,13 @@
 		FAAAEB9F251A9DAA000D9CC4 /* Payload.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAAEB95251A9DAA000D9CC4 /* Payload.framework */; };
 		FAAAEBA4251A9DAA000D9CC4 /* PayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAEBA3251A9DAA000D9CC4 /* PayloadTests.swift */; };
 		FAAAEBA6251A9DAA000D9CC4 /* Payload.h in Headers */ = {isa = PBXBuildFile; fileRef = FAAAEB98251A9DAA000D9CC4 /* Payload.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAAAEBB4251A9E58000D9CC4 /* Payload.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FAAAEBB3251A9E58000D9CC4 /* Payload.podspec */; };
 		FAAAEBB8251A9E71000D9CC4 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAEBB7251A9E71000D9CC4 /* CheckoutViewController.swift */; };
 		FAAAEBBF251A9E7D000D9CC4 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAEBBD251A9E7D000D9CC4 /* Payload.swift */; };
 		FAAAEBC0251A9E7D000D9CC4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAEBBE251A9E7D000D9CC4 /* Utils.swift */; };
 		FAAAEBC4251A9EAE000D9CC4 /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAAEBC3251A9EAE000D9CC4 /* CheckoutViewController.xib */; };
 		FAAAEBC8251AA1C9000D9CC4 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = FAAAEBC7251AA1C9000D9CC4 /* Assets */; };
 		FAAAEBD0251AB018000D9CC4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FAAAEBCF251AB018000D9CC4 /* README.md */; };
+		FACACCDF251AF740004FF93F /* PayloadAPI.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FACACCDE251AF740004FF93F /* PayloadAPI.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +36,13 @@
 		FAAAEB9E251A9DAA000D9CC4 /* PayloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PayloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAAEBA3251A9DAA000D9CC4 /* PayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadTests.swift; sourceTree = "<group>"; };
 		FAAAEBA5251A9DAA000D9CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAAAEBB3251A9E58000D9CC4 /* Payload.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Payload.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FAAAEBB7251A9E71000D9CC4 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		FAAAEBBD251A9E7D000D9CC4 /* Payload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		FAAAEBBE251A9E7D000D9CC4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FAAAEBC3251A9EAE000D9CC4 /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
 		FAAAEBC7251AA1C9000D9CC4 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 		FAAAEBCF251AB018000D9CC4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FACACCDE251AF740004FF93F /* PayloadAPI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PayloadAPI.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 		FAAAEB8B251A9DA9000D9CC4 = {
 			isa = PBXGroup;
 			children = (
-				FAAAEBB3251A9E58000D9CC4 /* Payload.podspec */,
+				FACACCDE251AF740004FF93F /* PayloadAPI.podspec */,
 				FAAAEBCF251AB018000D9CC4 /* README.md */,
 				FAAAEB97251A9DAA000D9CC4 /* Payload */,
 				FAAAEBA2251A9DAA000D9CC4 /* PayloadTests */,
@@ -199,9 +199,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAAAEBB4251A9E58000D9CC4 /* Payload.podspec in Resources */,
 				FAAAEBC8251AA1C9000D9CC4 /* Assets in Resources */,
 				FAAAEBD0251AB018000D9CC4 /* README.md in Resources */,
+				FACACCDF251AF740004FF93F /* PayloadAPI.podspec in Resources */,
 				FAAAEBC4251A9EAE000D9CC4 /* CheckoutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
