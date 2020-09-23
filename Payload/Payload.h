@@ -2,7 +2,7 @@
 //  Payload.h
 //  Payload
 //
-//  Created by Ian Halpern on 9/22/20.
+//  Created by Payload on 9/22/20.
 //
 
 #import <Foundation/Foundation.h>
