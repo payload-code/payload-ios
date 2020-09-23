@@ -16,7 +16,7 @@ Once you've included the Payload iOS library into you project,
 import the library into your view.
 
 ```swift
-import Payload
+import PayloadAPI
 ````
 
 ### API Authentication
@@ -25,7 +25,7 @@ To authenticate with the Payload API, you'll need a live or test API key. API
 keys are accessible from within the Payload dashbvoard.
 
 ```swift
-import Payload
+import PayloadAPI
 
 Payload.api_key = "client_key_3bW9JMZtPVDOfFNzwRdfE"
 ```
