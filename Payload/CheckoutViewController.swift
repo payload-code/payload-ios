@@ -298,9 +298,9 @@ class CheckoutViewController: UIViewController, MaskedTextFieldDelegateListener,
         
         height_cardbg.constant = h + min_top + min_padding
         
-        /*if ( first_run && cardbg.drop_shadow ) {
+        if ( first_run && cardbg.drop_shadow ) {
             cardbg.dropShadow()
-        }*/
+        }
         first_run = false
         
         if h > 200 {

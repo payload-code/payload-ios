@@ -398,8 +398,8 @@ public protocol Object: AnyObject {
         override class var endpoint:String { return "/encryption_key" }
     }
     
-    @objc public class func dismissKeyedView() {
-        Payload.checkout?.keyed_view?.closeKeyedUI()
+    @objc public class func dismissCheckoutView() {
+        Payload.checkout?.dismiss()
     }
     
     @objc public class Checkout:NSObject {
@@ -506,6 +506,10 @@ public protocol Object: AnyObject {
 
         }
         
+        @objc public func dismiss() {
+            self.keyed_view?.closeKeyedUI()
+        }
+        
         func handleTransactionResult(payment:Payload.Transaction, orig_payment:Payload.Transaction, completion:((_ payment:Payload.Transaction)->Void)?) {
             if ( self.payment !== orig_payment) {
                 return
@@ -597,7 +601,7 @@ public protocol Object: AnyObject {
             }
             
             self.delegateEvt(TxDelegateEvt.canceled, self.payment)
-            Payload.dismissKeyedView()
+            self.dismiss()
             self.clearPayment()
         }
         
