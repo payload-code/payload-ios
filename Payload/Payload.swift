@@ -17,7 +17,6 @@ import Network
     @objc optional func declined(_ payment:Payload.Payment)
     @objc optional func canceled(_ payment:Payload.Payment)
     @objc optional func timeout(_ payment:Payload.Payment)
-    @objc optional func stored(_ payment:Payload.Payment)
     @objc optional func error(_ payment:Payload.Payment,_ error:Payload.PayloadError)
     @objc optional func processing(trans:Payload.Transaction)
     @objc optional func processed(trans:Payload.Transaction)
@@ -25,7 +24,6 @@ import Network
     @objc optional func declined(trans:Payload.Transaction)
     @objc optional func canceled(trans:Payload.Transaction)
     @objc optional func timeout(trans:Payload.Transaction)
-    @objc optional func stored(trans:Payload.Transaction)
     @objc optional func error(trans:Payload.Transaction, error:Payload.PayloadError)
     @objc optional func card_present(trans:Payload.Transaction)
     @objc optional func card_removed(trans:Payload.Transaction)
@@ -41,7 +39,6 @@ public enum TxDelegateEvt {
     case declined
     case canceled
     case timeout
-    case stored
     case error
     case card_present
     case card_removed
@@ -51,7 +48,7 @@ public protocol Object: AnyObject {
     var obj:Dictionary<String,Any> { get };
 }
 
-@objc public protocol PayloadDeviceProto: AnyObject {
+@objc public protocol PayloadCardReaderProto: AnyObject {
     @objc func beginTransaction(_ checkout:Payload.Checkout) throws
     @objc func clearPayment()
     @objc func transactionFinished(payment:Payload.Transaction)
@@ -60,7 +57,7 @@ public protocol Object: AnyObject {
 @objc public class Payload: NSObject {
     static var _api_key:String = "";
     static var checkout:Checkout?;
-    @objc public static var connected_device:PayloadDeviceProto?;
+    @objc public static var connected_reader:PayloadCardReaderProto?;
 
     @objc public static var api_key:String{
         get { return _api_key }
@@ -90,7 +87,7 @@ public protocol Object: AnyObject {
     @objc public class Errors: NSObject {
         @objc public class TransactionAlreadyStarted: PayloadError {
         }
-        @objc public class DeviceAlreadyConnected: PayloadError {
+        @objc public class CardReaderAlreadyConnected: PayloadError {
         }
         @objc public class ErrorReadingCard: PayloadError {
         }
@@ -269,9 +266,9 @@ public protocol Object: AnyObject {
     }
     #if PL_DEBUG_EVT
     @objc public static func throwErrorEvent() {
-        Payload.checkout?.device?.manager.evt("[Throw Test Error] throwing error in 2 seconds...")
+        Payload.checkout?.reader?.manager.evt("[Throw Test Error] throwing error in 2 seconds...")
         DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
-            Payload.checkout?.device?.manager.evt("[Throw Test Error] throwing error now")
+            Payload.checkout?.reader?.manager.evt("[Throw Test Error] throwing error now")
         
             do {
                 try? Payload.checkout?.transactionFinished(payment: Payload.checkout!.payment, error: Payload.PayloadError("Test error event"))
@@ -407,18 +404,18 @@ public protocol Object: AnyObject {
     
     @objc public class Checkout:NSObject {
         var tx_delegate:PayloadTransactionDelegate;
-        var device:PayloadDeviceProto?;
+        var reader:PayloadCardReaderProto?;
         @objc public var payment:Transaction;
         var is_processing:Bool = false;
         var payment_started:Bool = false;
         var keyed_view:CheckoutViewController?;
         
-        @objc public init(_ payment:Transaction, device:PayloadDeviceProto?=nil, delegate:PayloadTransactionDelegate) {
+        @objc public init(_ payment:Transaction, reader:PayloadCardReaderProto?=nil, delegate:PayloadTransactionDelegate) {
             
             self.payment = payment
-            self.device = device
-            if self.device == nil {
-                self.device = Payload.connected_device
+            self.reader = reader
+            if self.reader == nil {
+                self.reader = Payload.connected_reader
             }
             
             self.tx_delegate = delegate
@@ -454,15 +451,15 @@ public protocol Object: AnyObject {
                 }
             }
             
-            if payment.source == nil && self.device == nil {
+            if payment.source == nil && self.reader == nil {
                 payment.source = "keyed"
             }
             
             if ( payment.source != "keyed" ) {
-                if self.device == nil {
+                if self.reader == nil {
                     throw Payload.Errors.CardReaderNotConnected("Card reader not connected")
                 }
-                try self.device?.beginTransaction(self)
+                try self.reader?.beginTransaction(self)
             } else {
                 self.startKeyed()
             }
@@ -521,8 +518,8 @@ public protocol Object: AnyObject {
             if completion != nil {
                 completion!(payment)
             } else {
-                if self.device != nil {
-                    self.device?.transactionFinished(payment: payment)
+                if self.reader != nil {
+                    self.reader?.transactionFinished(payment: payment)
                 } else {
                     self.transactionFinished(payment: payment)
                 }
@@ -543,10 +540,6 @@ public protocol Object: AnyObject {
                 if payment.status == "declined" {
                     self.delegateEvt(TxDelegateEvt.declined, payment)
                 }
-                
-                if payment.status == "stored" {
-                    self.delegateEvt(TxDelegateEvt.stored, payment)
-                }
             } else {
                 self.delegateEvt(TxDelegateEvt.error, payment, error!)
             }
@@ -566,7 +559,7 @@ public protocol Object: AnyObject {
             if ( self.keyed_view == nil || !Payload.manual_keyed_view_dismissal ) {
                 Payload.checkout = nil;
             }
-            self.device?.clearPayment()
+            self.reader?.clearPayment()
         }
         
         func startKeyed() {
@@ -677,14 +670,6 @@ public protocol Object: AnyObject {
                     self.tx_delegate.error?(trans: trans, error: args[1] as! Payload.PayloadError)
                     if trans["type"] as? String == "payment" {
                         self.tx_delegate.error?(trans as! Payload.Payment, args[1] as! Payload.PayloadError)
-                    }
-                    break
-                case .stored:
-                    self.debug("[TxDelegateEvt] fire:stored exists:\(self.tx_delegate.stored != nil)")
-                    
-                    self.tx_delegate.stored?(trans: trans)
-                    if trans["type"] as? String == "payment" {
-                        self.tx_delegate.stored?(trans as! Payload.Payment)
                     }
                     break
                 case .card_present:

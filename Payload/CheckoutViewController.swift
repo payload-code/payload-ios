@@ -145,8 +145,8 @@ class CheckoutViewController: UIViewController, MaskedTextFieldDelegateListener,
         }
         
         self.total_label.text = String(format: "Total: $%.02f", self.checkout.payment.amount ?? 0)
-        
-        /*card_number.attributedPlaceholder = NSAttributedString(string:"Card Number", attributes: [
+
+        card_number.attributedPlaceholder = NSAttributedString(string:"Card Number", attributes: [
                 NSAttributedString.Key.foregroundColor: card_number.placeholder_color
             ])
         
@@ -161,10 +161,10 @@ class CheckoutViewController: UIViewController, MaskedTextFieldDelegateListener,
         zipcode.attributedPlaceholder = NSAttributedString(string:"Zipcode", attributes: [
                 NSAttributedString.Key.foregroundColor: zipcode.placeholder_color
             ])
-        
+         
         card_code.attributedPlaceholder = NSAttributedString(string:"CVV", attributes: [
                 NSAttributedString.Key.foregroundColor: card_code.placeholder_color
-            ])*/
+            ])
         
         navigationItem.titleView = title_label
     }

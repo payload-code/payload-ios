@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'PayloadAPI'
-  spec.version      = '0.1.1'
+  spec.version      = '0.2.0'
   spec.ios.deployment_target = '10.0'
   spec.swift_versions = '4.2'
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
